@@ -44,38 +44,38 @@ public class PileTest {
 	}
 
 	@Test(expected = AssertionError.class)
-	public void testGetTopOneWrongIsNotFaceUp() {
+	public void testPeekOneWrongIsNotFaceUp() {
 		Pile pile = new PileBuilder().card().card().build();
-		pile.getTop(2);
+		pile.peek(2);
 	}
 
 	@Test
-	public void testGetTopOne() {
+	public void testPeekOne() {
 		CardListBuilder cardListBuilder = new CardListBuilder();
 		cardListBuilder.card(new CardBuilder().number(Number.AS).suit(Suit.DIAMONDS).facedUp().build());
 		Pile pile = new PileBuilder().card(new CardBuilder().number(Number.TWO).suit(Suit.PIKES).build()).build();
-		this.testGetTop(cardListBuilder.build(), pile);
+		this.testPeek(cardListBuilder.build(), pile);
 	}
 
 	@Test
-	public void testGetTopMany() {
+	public void testPeekMany() {
 		CardListBuilder cardListBuilder = new CardListBuilder();
 		cardListBuilder.card(new CardBuilder().number(Number.NINE).suit(Suit.CLOVERS).facedUp().build());
 		cardListBuilder.card(new CardBuilder().number(Number.EIGHT).suit(Suit.DIAMONDS).facedUp().build());
 		cardListBuilder.card(new CardBuilder().number(Number.SEVEN).suit(Suit.PIKES).facedUp().build());
 		Pile pile = new PileBuilder().card(new CardBuilder().number(Number.TEN).suit(Suit.DIAMONDS).build()).build();
-		this.testGetTop(cardListBuilder.build(), pile);
+		this.testPeek(cardListBuilder.build(), pile);
 	}
 
-	private void testGetTop(List<Card> cards, Pile pile) {
+	private void testPeek(List<Card> cards, Pile pile) {
 		for (Card card : cards) {
 			pile.push(card);
 		}
-		assertEquals(cards, pile.getTop(cards.size()));
+		assertEquals(cards, pile.peek(cards.size()));
 	}
 
 	@Test
-	public void testAddToTop() {
+	public void testPush() {
 		Pile pile = new PileBuilder().card()
 				.card(new CardBuilder().number(Number.TEN).suit(Suit.DIAMONDS).build()).build();
 		Card topCard = pile.peek();
@@ -83,9 +83,9 @@ public class PileTest {
 				.card(new CardBuilder().number(Number.NINE).suit(Suit.CLOVERS).facedUp().build())
 				.card(new CardBuilder().number(Number.EIGHT).suit(Suit.DIAMONDS).facedUp().build())
 				.card(new CardBuilder().number(Number.SEVEN).suit(Suit.PIKES).facedUp().build()).build();
-		pile.addToTop(cards);
+		pile.push(cards);
 		cards.add(0, topCard);
-		assertEquals(cards, pile.getTop(cards.size()));
+		assertEquals(cards, pile.peek(cards.size()));
 	}
 
 	@Test
@@ -95,7 +95,7 @@ public class PileTest {
 		pile.push(new CardBuilder().number(Number.NINE).suit(Suit.CLOVERS).facedUp().build());
 		pile.push(new CardBuilder().number(Number.EIGHT).suit(Suit.DIAMONDS).facedUp().build());
 		pile.push(new CardBuilder().number(Number.SEVEN).suit(Suit.PIKES).facedUp().build());
-		pile.removeTop(4);
+		pile.pop(4);
 		assertTrue(pile.pop().isFacedUp());
 		assertTrue(pile.empty());
 	}
