@@ -32,6 +32,7 @@ public class Stock {
 	}
 
 	public void push(Card card) {
+		assert !card.isFacedUp();
 		this.cards.push(card);
 	}
 
