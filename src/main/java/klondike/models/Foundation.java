@@ -42,6 +42,7 @@ public class Foundation {
 	}
 
 	public void push(Card card) {
+		assert card != null;
 		this.cards.push(card);
 	}
 }
