@@ -9,6 +9,7 @@ public class Foundation {
     private Stack<Card> cards;
 
     public Foundation(Suit suit) {
+        assert suit != null;
 		this.cards = new Stack<Card>();
         this.suit = suit;
     }
